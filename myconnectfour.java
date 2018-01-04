@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class myconnectfour {
+public class MyConnectFour {
 	
 	public static void main(String[] args){
 		new MyConnectFour();
