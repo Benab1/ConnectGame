@@ -20,7 +20,7 @@ public class MyConnectFour {
 		System.out.println("Welcome to Connect 4");
 		System.out.println("There are 2 players red and yellow");
 		System.out.println("Player 1 is Red, Player 2 is Yellow");
-		System.out.println("To play the game type in the number of the column you want to drop you counter in") 
+		System.out.println("To play the game type in the number of the column you want to drop you counter in");
 		System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally");
 		System.out.println("");
 		printBoard();
@@ -105,7 +105,7 @@ public class MyConnectFour {
 					}
 					count = 0;
 				}
-				printBoard()
+				printBoard();
 				if(hasWon){
 					win = true;
 				}
@@ -118,7 +118,7 @@ public class MyConnectFour {
 	private String getUserInput(){
 		String toReturn = null;
 		try{			
-			String toReturn = input.readLine()
+			String toReturn = input.readLine();
 		}
 		catch(Exception e){
 			
@@ -166,7 +166,7 @@ public class MyConnectFour {
 						// skip
 					}
 					else if(board[i][position-1] != 'y'){
-						board[i][position-1] = 'y'
+						board[i][position-1] = 'y';
 						placed = true;
 					} 
 				}
