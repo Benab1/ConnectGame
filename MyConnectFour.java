@@ -27,9 +27,9 @@ public class MyConnectFour {
 		boolean win = false;
 		while(!win){
 			// player 1
-			String userInput = getuserInput();
+			String userInput = getUserInput();
 			int move = Integer.parseInt(userInput);
-			placeCounter('r',userInput);
+			placeCounter('r', move);
 			boolean hasWon = false;
 			int count = 0;
 			// check horizontal
