@@ -11,7 +11,6 @@ public class MyConnectFour {
 	private char[][] board;
 	
 	public MyConnectFour(){
-		// 8===D
 		board = new char[6][7];
 		input = new BufferedReader(new InputStreamReader(System.in));
 		playGame();
