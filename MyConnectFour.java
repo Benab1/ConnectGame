@@ -118,7 +118,7 @@ public class MyConnectFour {
 	private String getUserInput(){
 		String toReturn = null;
 		try{			
-			String toReturn = input.readLine();
+			toReturn = input.readLine();
 		}
 		catch(Exception e){
 			
