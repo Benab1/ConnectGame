@@ -12,7 +12,8 @@ public class MyConnectFour {
 	
 	public MyConnectFour(){
 		board = new char[6][7];
-		input = new BufferedReader(new InputStreamReader(System.in));
+		HumanPlayer player1 = new HumanPlayer('r');
+		HumanPlayer player2 = new HumanPlayer('y')
 		playGame();
 	}
 	
