@@ -7,6 +7,7 @@ public class HumanPlayer extends Player {
 
   public HumanPlayer(char c){
   	this.setColour(c);
+  	System.out.println("hello" + this.getColour());
   }
 
   public void setMove(){
@@ -15,6 +16,7 @@ public class HumanPlayer extends Player {
 
 	try{			
 		move = Integer.parseInt(input.readLine());
+		System.out.println("move parsed");
 	}
 	catch(Exception e){	
 	}

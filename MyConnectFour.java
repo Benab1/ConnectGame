@@ -5,17 +5,24 @@ public class MyConnectFour {
 	
 	public static void main(String[] args){
 		MyConnectFour game1 = new MyConnectFour();
+		game1.welcomeMesssage(); 
 		game1.playGame();
 	}
 	
 	private BufferedReader input;
 	private char[][] board;
+	private HumanPlayer player1;
+	private HumanPlayer player2;
+	private int rows = 6;
+	private int columns = 7;
+	private int count = 0;
+	private boolean hasWon = false;
+	
 	
 	public MyConnectFour(){
-		board = new char[6][7];
-		HumanPlayer player1 = new HumanPlayer('r');
-		HumanPlayer player2 = new HumanPlayer('y')
-		
+		board = new char[rows][columns];
+		player1 = new HumanPlayer('r');
+		player2 = new HumanPlayer('y');
 	}
 	
 	private void welcomeMesssage() {
@@ -28,38 +35,104 @@ public class MyConnectFour {
 	}
 	
 	private void playGame(){
-	  
-		printBoard();
-		boolean win = false;
-		while(!win){
-			// player 1
-			String userInput = getUserInput();
-			int move = Integer.parseInt(userInput);
-			placeCounter('r', move);
-			boolean hasWon = false;
-			int count = 0;
-			// check horizontal
-			for(int i=0; i<board.length; i++){
+		while(!checkWin() && !checkDraw()){
+			printBoard();		// Start the turn by printing the board
+			player1.setMove();
+	        if(isMoveLegal(player1.getMove())){
+	            continue;
+	        }
+	        else{
+	        	while(!isMoveLegal(player1.getMove())){
+	        		System.out.println("Invalid move, please select a different column.");
+	        		player1.setMove();
+	        	}
+	        }      
+	        placeCounter(player1.getColour(),player1.getMove());  // place the counter for player one  
+	        if(checkWin()){
+	        	winMessage();
+	        	printBoard();
+	        	break;
+	        }
+	        else if(checkDraw()){
+	        	drawMessage();
+	        	printBoard();
+	        	break;
+	        }
+
+	        //Player two's go starts here
+			printBoard();		
+			player2.setMove();
+	        if(isMoveLegal(player2.getMove())){
+	            continue;
+	        }
+	        else{
+	        	while(!isMoveLegal(player2.getMove())){
+	        		System.out.println("Invalid move, please select a different column.");
+	        		player2.setMove();
+	        	}
+	        }      
+	        placeCounter(player2.getColour(),player2.getMove()); 
+	        if(checkWin()){
+	        	winMessage();
+	        	printBoard();
+	        	break;
+	        }
+	        else if(checkDraw()){
+	        	drawMessage();
+	        	printBoard();
+	        	break;
+	        }
+	    }
+    }
+
+    private boolean isMoveLegal(int move){
+    	if(move<=columns && move>0 && board[rows-1][move-1] != ' '){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+
+    private boolean checkWin(){
+    	if (horrizontalWin()||verticalWin()||diagonalWin()){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+
+    private boolean checkDraw(){
+
+    	return false;
+    }
+
+    private boolean horrizontalWin(){
+    	for(int i=0; i<board.length; i++){
 				for(int j=0; j<board[i].length; j++){
 					if(board[i][j] == 'r'){
 						count = count + 1;
-						if(count > 4){
+						if(count >= 4){
+							winMessage();
 							hasWon = true;
 						}
 					}
 					else{
 						count = 0;
 					}
-				}
-				
-			}
-			// check vertical 
-			count = 0;
-			for(int i=0; i<board[0].length; i++){
+				}	
+		}
+		return hasWon;
+    }
+
+    private boolean verticalWin(){
+    	for(int i=0; i<board[0].length; i++){
 				for(int j=0; j<board.length; j++){
 					if(board[j][i] == 'r'){
 						count = count + 1;
-						if(count > 4){
+						if(count >= 4){
+							winMessage();
 							hasWon = true;
 						}
 					}
@@ -68,69 +141,23 @@ public class MyConnectFour {
 					}
 				}
 				
-			}
-			printBoard();
-			if(hasWon){
-				win = true;
-			}
-			else{
-				//player 2
-				userInput = getUserInput();
-				move = Integer.parseInt(userInput);
-				placeCounter('y',move);
-				hasWon = false;
-				count = 0;
-				// check horizontal
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board[i].length; j++){
-						if(board[i][j] == 'y'){
-							count = count + 1;
-							if(count >= 4){
-								hasWon = true;
-							}
-						}
-						else{
-							
-						}
-					}
-					count = 0;
-				}
-				// check vertical 
-				count = 0;
-				for(int i=0; i<board[0].length; i++){
-					for(int j=0; j<board.length; j++){
-						if(board[j][i] == 'y'){
-							count = count + 1;
-							if(count >= 4){
-								hasWon = true;
-							}
-						}
-						else{
-							 
-						}
-					}
-					count = 0;
-				}
-				printBoard();
-				if(hasWon){
-					win = true;
-				}
-			}
-			System.out.println("You Have Won!!!");
 		}
-		
-	}
-	
-	private String getUserInput(){
-		String toReturn = null;
-		try{			
-			toReturn = input.readLine();
-		}
-		catch(Exception e){
-			
-		}
-		return toReturn;
-	}
+		return hasWon;
+    }
+
+    private boolean diagonalWin(){
+
+    	return false;
+    }
+
+    private void winMessage(){
+    	System.out.println("You Have Won!!!");
+    }
+
+    private void drawMessage(){
+    	System.out.println("No moves left to play, the game is a draw!");
+    }
+
 	
 	private void printBoard(){
 		for(int i=0; i<board.length-1; i++) {
@@ -146,21 +173,21 @@ public class MyConnectFour {
 				}
 			}
 			System.out.println("|");
-		}
+			}
 		System.out.println("  1   2   3   4   5   6   7");
 	}
 	
 	private void placeCounter(char player, int position){
 		boolean placed = false;
+		System.out.print("start placing counter");
 		if(player == 'r'){
+			System.out.print("red player");
 			for(int i=board.length-1; i>=0; i--){
 				if(!placed){
-					if(board[i][position] == 'y'){
-						// skip
-					}
-					else if(board[i][position] != 'r'){
-						board[i][position] = 'r';
-						placed = ture;
+					if(board[i][position-1] == '\u0000'){
+						board[i][position-1] = 'r';
+						System.out.println("true");
+					    placed = true;
 					}
 				}
 			}
@@ -168,8 +195,8 @@ public class MyConnectFour {
 		else{
 			for(int i=board.length-1; i>=0; i--){
 				if(!placed){
-					if(board[i][position-1] = 'r'){
-						// skip
+					if(board[i][position-1] == 'r'){
+						continue;
 					}
 					else if(board[i][position-1] != 'y'){
 						board[i][position-1] = 'y';

@@ -1,9 +1,7 @@
 abstract class Player {
 
-  private char colour;
+  protected char colour;
   protected int move;
-
-  
 
   public void setColour(char c){
   	colour = c;
@@ -16,6 +14,7 @@ abstract class Player {
   abstract void setMove();
 
   public int getMove(){
+  	System.out.println("getting move");
   	return move;
   }
 }
