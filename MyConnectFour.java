@@ -4,7 +4,8 @@ import java.io.InputStreamReader;
 public class MyConnectFour {
 	
 	public static void main(String[] args){
-		new MyConnectFour();
+		MyConnectFour game1 = new MyConnectFour();
+		game1.playGame();
 	}
 	
 	private BufferedReader input;
@@ -14,7 +15,7 @@ public class MyConnectFour {
 		board = new char[6][7];
 		HumanPlayer player1 = new HumanPlayer('r');
 		HumanPlayer player2 = new HumanPlayer('y')
-		playGame();
+		
 	}
 	
 	private void welcomeMesssage() {
