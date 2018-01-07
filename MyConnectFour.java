@@ -12,7 +12,7 @@ public class MyConnectFour {
 	private BufferedReader input;
 	private char[][] board;
 	private HumanPlayer player1;
-	private ComputerPlayer player2;
+	private HumanPlayer player2;
 	private Player[] players;
 	private int rows = 6;
 	private int columns = 7;
@@ -24,7 +24,7 @@ public class MyConnectFour {
 	public MyConnectFour(){
 		board = new char[rows][columns];
 		player1 = new HumanPlayer('r');
-		player2 = new ComputerPlayer('y');
+		player2 = new HumanPlayer('y');
 		players = new Player[] {player1, player2};
 	}
 	
