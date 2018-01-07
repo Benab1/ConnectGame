@@ -148,11 +148,18 @@ public class MyConnectFour {
     // diagonalWin checks the board for four consecutive counters of the same colour in a diagonal line.
     // First it checks from the board's bottom left to top right direction and then from bottom right to top left.
     private boolean diagonalWin(Player player){
+    	checkDiagonals(player,true);
+    	return hasWon;
+    }
+    //  Helper function for diagonalWin, direction = true means southeastern. direction = false means northeastern.
+    private void checkDiagonals(Player player, boolean direction){
+    	// TODO replace with class variable
+    	int winCount = 2;
 
+    	// Checking from diagonal base point southeasterly
     	for(int baseRow=0; baseRow<board.length-1; baseRow++){
     		for(int baseCol=0; baseCol<board[0].length-1; baseCol++){
-		    	// TODO replace with class variable
-		    	int winCount = 2;
+
 		    	int playerCount = 0;
 		    	for(int offset=0; offset<winCount; offset++){
 		    		//check for out of index
@@ -174,11 +181,9 @@ public class MyConnectFour {
 
 		    	if(playerCount==winCount){
 		    		hasWon = true;
-		    		return hasWon;
 		    	}
 		    }
 	    }
-        return hasWon;
 	}
 
     private void winMessage(){
