@@ -4,7 +4,7 @@ public class ComputerPlayer extends Player {
 
 
   public ComputerPlayer(char c){
-  	this.setColour(c);
+  	colour = c;
   }
 
   public void setMove(){

@@ -6,7 +6,7 @@ public class HumanPlayer extends Player {
   private BufferedReader input;
 
   public HumanPlayer(char c){
-  	this.setColour(c);
+  	colour = c;
   }
 
   public void setMove(){
