@@ -9,7 +9,8 @@ public class HumanPlayer extends Player {
   	colour = c;
   }
 
-  public void setMove(){
+  @Override
+  public int makeMove(){
   	
   	input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -18,7 +19,7 @@ public class HumanPlayer extends Player {
 	}
 	catch(Exception e){	
 	}
-
+	return move;
   }
 
 }

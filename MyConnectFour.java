@@ -13,6 +13,7 @@ public class MyConnectFour {
 	private char[][] board;
 	private HumanPlayer player1;
 	private ComputerPlayer player2;
+	private Player[] players;
 	private int rows = 6;
 	private int columns = 7;
 	private int count = 0;
@@ -24,6 +25,7 @@ public class MyConnectFour {
 		board = new char[rows][columns];
 		player1 = new HumanPlayer('r');
 		player2 = new ComputerPlayer('y');
+		players = new Player[] {player1, player2};
 	}
 	
 	private void welcomeMesssage() {
@@ -38,46 +40,26 @@ public class MyConnectFour {
 	//  been won or drawn. The updated game board is printed following each player's turn. When the game has ended the loop
 	//  is broken and the appropriate message is printed.
 	private void playGame(){
+		int i = 0;
 		while(!checkWin() && !checkDraw()){
 			printBoard();		// Start the turn by printing the board
-			player1.setMove();
-	        if(isMoveLegal(player1.getMove())){
-	        }
-	        else{
-	        	while(!isMoveLegal(player1.getMove())){  // As long as the move provided by a player is not legal they will be prompted for another move.
-	        		System.out.println("Invalid move, please select a different column.");
-	        		player1.setMove();
-	        	}
-	        }  
-	        placeCounter(player1.getColour(),player1.getMove());  // place the counter for player one
+			
+			Player currentPlayer = players[i];
+			int move = currentPlayer.makeMove();
+	        while(!isMoveLegal(move)){  // As long as the move provided by a player is not legal they will be prompted for another move.
+        		System.out.println("Invalid move, please select a different column.");
+        		move = currentPlayer.makeMove();
+        	}  
+	        placeCounter(currentPlayer.getColour(),move);  // place the counter for player one
 	        if(checkWin()){
 	        	break;
 	        }
 	        else if(checkDraw()){
 	        	break;
 	        }
-
-	        //Player two's go starts here
-			printBoard();		
-			player2.setMove();
-	        if(isMoveLegal(player2.getMove())){
-	        }
-	        else{
-	        	while(!isMoveLegal(player2.getMove())){
-	        		System.out.println("Invalid move, please select a different column.");
-	        		player2.setMove();
-	        	}
-	        }      
-	        placeCounter(player2.getColour(),player2.getMove()); 
-	        if(checkWin()){
-	        	winMessage();
-	        	printBoard();
-	        	break;
-	        }
-	        else if(checkDraw()){
-	        	drawMessage();
-	        	printBoard();
-	        	break;
+	        i++;
+	        if(i == players.length){
+	        	i = 0;
 	        }
 	    }
     }

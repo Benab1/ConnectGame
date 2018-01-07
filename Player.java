@@ -8,9 +8,6 @@ abstract class Player {
   	return colour;
   }
 
-  abstract void setMove();
+  abstract int makeMove();
 
-  public int getMove(){
-  	return move;
-  }
 }
