@@ -148,22 +148,36 @@ public class MyConnectFour {
     // diagonalWin checks the board for four consecutive counters of the same colour in a diagonal line.
     // First it checks from the board's bottom left to top right direction and then from bottom right to top left.
     private boolean diagonalWin(Player player){
-        //  Bottom left to top right directional diagonals
-        for(int i= board.length/2;i<=5;i++){
-        	for(int j=0;j<=(board[i].length-1)/2;j++){
-        		if(board[i][j]==player.getColour() && board[i-1][j+1]==player.getColour() && board[i-2][j+2]==player.getColour() && board[i-3][j+3]==player.getColour()){
-					hasWon = true;
-        		}
-        	}
-        }
-        // Bottom right to top left direction
-        for(int i= board.length/2;i<=5;i++){
-        	for(int j=(board[i].length-1)/2;j<=board[i].length-1;j++){
-        		if(board[i][j]==player.getColour() && board[i-1][j-1]==player.getColour() && board[i-2][j-2]==player.getColour() && board[i-3][j-3]==player.getColour()){
-					hasWon = true;
-        		}
-        	}
-        }		        
+
+    	for(int baseRow=0; baseRow<board.length-1; baseRow++){
+    		for(int baseCol=0; baseCol<board[0].length-1; baseCol++){
+		    	// TODO replace with class variable
+		    	int winCount = 2;
+		    	int playerCount = 0;
+		    	for(int offset=0; offset<winCount; offset++){
+		    		//check for out of index
+		    		int checkRow = baseRow + offset;
+		    		int checkCol = baseCol + offset;
+		    		if(checkRow<0 || checkRow>board.length-1){
+		    			break;
+		    		} 
+
+		    		if(checkCol<0 || checkCol>board[checkRow].length-1){
+		    			break;
+		    		} 
+
+		    		//check for player
+		    		if(board[checkRow][checkCol]==player.getColour()){
+		    			playerCount++;
+		    		}
+		    	}
+
+		    	if(playerCount==winCount){
+		    		hasWon = true;
+		    		return hasWon;
+		    	}
+		    }
+	    }
         return hasWon;
 	}
 
