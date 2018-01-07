@@ -14,7 +14,6 @@ abstract class Player {
   abstract void setMove();
 
   public int getMove(){
-  	System.out.println("getting move");
   	return move;
   }
 }
