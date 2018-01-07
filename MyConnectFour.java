@@ -41,17 +41,17 @@ public class MyConnectFour {
 	//  is broken and the appropriate message is printed.
 	private void playGame(){
 		int i = 0;
-		while(!checkWin() && !checkDraw()){
+		Player currentPlayer = players[i];
+		while(!checkWin(currentPlayer) && !checkDraw()){
 			printBoard();		// Start the turn by printing the board
-			
-			Player currentPlayer = players[i];
+			currentPlayer = players[i];
 			int move = currentPlayer.makeMove();
 	        while(!isMoveLegal(move)){  // As long as the move provided by a player is not legal they will be prompted for another move.
         		System.out.println("Invalid move, please select a different column.");
         		move = currentPlayer.makeMove();
         	}  
 	        placeCounter(currentPlayer.getColour(),move);  // place the counter for player one
-	        if(checkWin()){
+	        if(checkWin(currentPlayer)){
 	        	break;
 	        }
 	        else if(checkDraw()){
@@ -75,8 +75,8 @@ public class MyConnectFour {
     }
 
     // checkWin prints a message, displays the board and returns true if any of the possible win conditions have been met.
-    private boolean checkWin(){
-    	if (horrizontalWin()||verticalWin()||diagonalWin()){
+    private boolean checkWin(Player player){
+    	if (horrizontalWin(player)||verticalWin(player)||diagonalWin(player)){
     		winMessage();
 	        printBoard();
     		return true;
@@ -110,10 +110,10 @@ public class MyConnectFour {
     }
 
     // horrizontalWin checks the board for four consecutive counters of the same colour in one row.
-    private boolean horrizontalWin(){
+    private boolean horrizontalWin(Player player){
     	for(int i=0; i<board.length; i++){
 				for(int j=0; j<board[i].length; j++){
-					if(board[i][j] == 'r'){
+					if(board[i][j] == player.getColour()){
 						count = count + 1;
 						if(count >= 4){
 							hasWon = true;
@@ -128,10 +128,10 @@ public class MyConnectFour {
     }
 
     // verticalWin checks the board for four consecutive counters of the same colour in one column.
-    private boolean verticalWin(){
+    private boolean verticalWin(Player player){
     	for(int i=0; i<board[0].length; i++){
 				for(int j=0; j<board.length; j++){
-					if(board[j][i] == 'r'){
+					if(board[j][i] == player.getColour()){
 						count = count + 1;
 						if(count >= 4){
 							hasWon = true;
@@ -141,18 +141,17 @@ public class MyConnectFour {
 						count = 0;
 					}
 				}
-				
 		}
 		return hasWon;
     }
 
     // diagonalWin checks the board for four consecutive counters of the same colour in a diagonal line.
     // First it checks from the board's bottom left to top right direction and then from bottom right to top left.
-    private boolean diagonalWin(){
+    private boolean diagonalWin(Player player){
         //  Bottom left to top right directional diagonals
         for(int i= board.length/2;i<=5;i++){
         	for(int j=0;j<=(board[i].length-1)/2;j++){
-        		if(board[i][j]==player1.getColour() && board[i-1][j+1]==player1.getColour() && board[i-2][j+2]==player1.getColour() && board[i-3][j+3]==player1.getColour()){
+        		if(board[i][j]==player.getColour() && board[i-1][j+1]==player.getColour() && board[i-2][j+2]==player.getColour() && board[i-3][j+3]==player.getColour()){
 					hasWon = true;
         		}
         	}
@@ -160,7 +159,7 @@ public class MyConnectFour {
         // Bottom right to top left direction
         for(int i= board.length/2;i<=5;i++){
         	for(int j=(board[i].length-1)/2;j<=board[i].length-1;j++){
-        		if(board[i][j]==player1.getColour() && board[i-1][j-1]==player1.getColour() && board[i-2][j-2]==player1.getColour() && board[i-3][j-3]==player1.getColour()){
+        		if(board[i][j]==player.getColour() && board[i-1][j-1]==player.getColour() && board[i-2][j-2]==player.getColour() && board[i-3][j-3]==player.getColour()){
 					hasWon = true;
         		}
         	}
