@@ -1,0 +1,2 @@
+javac MyConnectFour.java
+java MyConnectFour
