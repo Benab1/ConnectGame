@@ -1,19 +1,23 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class MyConnectFour {
 	
 	public static void main(String[] args){
+		
 		MyConnectFour game1 = new MyConnectFour();
+		game1.setN();
 		game1.welcomeMesssage(); 
 		game1.playGame();
 	}
-	
+		
 	private BufferedReader input;
 	private char[][] board;
 	private HumanPlayer player1;
 	private HumanPlayer player2;
 	private Player[] players;
+	private int nValue;
 	private int rows = 6;
 	private int columns = 7;
 	private int count = 0;
@@ -27,9 +31,20 @@ public class MyConnectFour {
 		player2 = new HumanPlayer('y');
 		players = new Player[] {player1, player2};
 	}
+
+	public int setN(){
+		Scanner sc=new Scanner(System.in);  
+   		System.out.println("Enter the length of connectN you  wish to play between 2 and 7: ");  
+   		this.nValue=sc.nextInt();  
+   		while(nValue>7 || nValue<2){
+   			System.out.println("Please select a number between 2 and 7: ");
+   			this.nValue = sc.nextInt();
+   		}
+   		return this.nValue;
+	}
 	
 	private void welcomeMesssage() {
-	   System.out.println("Welcome to Connect 4");
+	   System.out.println("\nWelcome to Connect 4");
 	   System.out.println("There are 2 players red and yellow");
 	   System.out.println("Player 1 is Red, Player 2 is Yellow");
 	   System.out.println("To play the game type in the number of the column you want to drop your counter in");
@@ -111,11 +126,12 @@ public class MyConnectFour {
 
     // horrizontalWin checks the board for four consecutive counters of the same colour in one row.
     private boolean horrizontalWin(Player player){
+    	System.out.println("horrizontal nValue, count: " + nValue + " " + count);
     	for(int i=0; i<board.length; i++){
 				for(int j=0; j<board[i].length; j++){
 					if(board[i][j] == player.getColour()){
-						count = count + 1;
-						if(count >= 4){
+						count++;
+						if(count >= nValue){
 							hasWon = true;
 						}
 					}
@@ -132,8 +148,8 @@ public class MyConnectFour {
     	for(int i=0; i<board[0].length; i++){
 				for(int j=0; j<board.length; j++){
 					if(board[j][i] == player.getColour()){
-						count = count + 1;
-						if(count >= 4){
+						count ++;
+						if(count >= nValue){
 							hasWon = true;
 						}
 					}
@@ -153,36 +169,36 @@ public class MyConnectFour {
     	return hasWon;
     }
 
-    //  Helper function for diagonalWin, direction = true means southeastern. direction = false means northeastern.
+    //  Helper function for diagonalWin, direction = true means checking top left to bottom right.
+    //  direction = false means checking bottom left to top right.
     private void checkDiagonals(Player player, boolean direction){
-    	// TODO replace with class variable
-    	int winCount = 2;
 
     	// Checking from diagonal base point southeasterly
     	for(int baseRow=0; baseRow<board.length; baseRow++){
     		for(int baseCol=0; baseCol<board[0].length; baseCol++){
 
+    			// Checking for diagonal runs of N defined by class variable: nValue
 		    	int playerCount = 0;
-		    	for(int offset=0; offset<winCount; offset++){
-		    		//check for out of index
+		    	for(int offset=0; offset<nValue; offset++){
+		    		//  Useing the ternary operator to run through both checking directions
 		    		int checkCol = baseCol + offset;
-		    		int checkRow = (direction) ? baseRow + offset : baseRow - offset;  //ternary operator
-
+		    		int checkRow = (direction) ? baseRow + offset : baseRow - offset;  
+		    		
+		    		// Checking for out of bounds conditions
 		    		if(checkRow<0 || checkRow>(board.length-1)){
 		    			break;
 		    		} 
-
 		    		if(checkCol<0 || checkCol>(board[checkRow].length-1)){
 		    			break;
 		    		} 
 
-		    		//check for player
+		    		//  
 		    		if(board[checkRow][checkCol]==player.getColour()){
 		    			playerCount++;
 		    		}
 		    	}
 
-		    	if(playerCount==winCount){
+		    	if(playerCount==nValue){
 		    		hasWon = true;
 		    	}
 		    }
