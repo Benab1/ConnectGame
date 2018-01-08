@@ -159,28 +159,20 @@ public class MyConnectFour {
     	int winCount = 2;
 
     	// Checking from diagonal base point southeasterly
-    	for(int baseRow=0; baseRow<board.length-1; baseRow++){
-    		for(int baseCol=0; baseCol<board[0].length-1; baseCol++){
+    	for(int baseRow=0; baseRow<board.length; baseRow++){
+    		for(int baseCol=0; baseCol<board[0].length; baseCol++){
 
 		    	int playerCount = 0;
 		    	for(int offset=0; offset<winCount; offset++){
 		    		//check for out of index
-		    		int checkRow;
-		    		int checkCol;
-		    		if(direction){
-		    			checkRow = baseRow + offset;
-		    			checkCol = baseCol + offset;
-		    		}
-		    		else{
-		    			checkRow = baseRow - offset;
-		    			checkCol = baseCol + offset;
-		    		}
+		    		int checkCol = baseCol + offset;
+		    		int checkRow = (direction) ? baseRow + offset : baseRow - offset;  //ternary operator
 
-		    		if(checkRow<0 || checkRow>board.length-1){
+		    		if(checkRow<0 || checkRow>(board.length-1)){
 		    			break;
 		    		} 
 
-		    		if(checkCol<0 || checkCol>board[checkRow].length-1){
+		    		if(checkCol<0 || checkCol>(board[checkRow].length-1)){
 		    			break;
 		    		} 
 
