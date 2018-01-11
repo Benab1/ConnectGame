@@ -31,13 +31,13 @@ public class MyConnectN {
 	}
 
 	// TODO handle non integer input
-	// setN allows a user to specify the length of connect they wish to play for 2<n<7.
+	// setN allows a user to specify the length of connect they wish to play for 3<n<6.
 	public int setN(){
 		Scanner sc=new Scanner(System.in);  
-   		System.out.println("Enter the length of connectN you  wish to play between 2 and 7: ");  
+   		System.out.println("Enter the length of connectN you  wish to play between 3 and 6: ");  
    		this.nValue=sc.nextInt();  
-   		while(nValue>7 || nValue<2){
-   			System.out.println("Please select a number between 2 and 7: ");
+   		while(nValue>6 || nValue<3){
+   			System.out.println("Please select a number between 3 and 6: ");
    			this.nValue = sc.nextInt();
    		}
    		return this.nValue;
@@ -45,11 +45,11 @@ public class MyConnectN {
 	
 	// 
 	private void welcomeMesssage() {
-	   System.out.println("\nWelcome to Connect 4");
-	   System.out.println("There are 2 players red and yellow");
-	   System.out.println("Player 1 is Red, Player 2 is Yellow");
+	   System.out.println("\nWelcome to Connect N");
+	   System.out.println("There are 3 players red, yellow and Blue");
+	   System.out.println("Player 1 is Red, Player 2 is Yellow, Player 3 is Blue");
 	   System.out.println("To play the game type in the number of the column you want to drop your counter in");
-	   System.out.println("A player wins by connecting 4 counters in a row - vertically, horizontally or diagonally\n");
+	   System.out.println("A player wins by connecting N counters in a row - vertically, horizontally or diagonally\n");
 	}
 	
    /*
