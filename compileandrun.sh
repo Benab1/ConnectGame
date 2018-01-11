@@ -1,3 +1,3 @@
-rm MyConnectFour.class
-javac MyConnectFour.java
-java MyConnectFour
+rm MyConnectN.class
+javac MyConnectN.java
+java MyConnectN
