@@ -5,12 +5,21 @@ import java.util.Scanner;
 public class MyConnectN {
 	
 	public static void main(String[] args){
-		MyConnectN game1 = new MyConnectN();
-		game1.setN();
+		MyConnectN game1 = new MyConnectN(6,7);
+		if (args.length==0){
+			game1.setN();
+		}
+		if (args.length==1){
+			try{
+				nValue = Integer.parseInt(args[0]);
+			}
+			catch (NumberFormatException e){
+				System.out.println("Please enter a number between 3 and 6");
+			} 
+		}
 		game1.playGame();
 	}
 	
-	// TODO comment
 	private char[][] board;
 	private HumanPlayer player1;
 	private ComputerPlayer player2;
@@ -22,15 +31,14 @@ public class MyConnectN {
 	
 	// Constructor method for the game.
 	// It instantiates the board and player objects.
-	public MyConnectN(){
-		board = new char[6][7];
+	public MyConnectN(int rows, int cols){
+		board = new char[rows][cols];
 		player1 = new HumanPlayer('r');
 		player2 = new ComputerPlayer('y');
 		player3 = new ComputerPlayer('b');
 		players = new Player[] {player1, player2, player3};
 	}
 
-	// TODO handle non integer input
 	// setN allows a user to specify the length of connect they wish to play for 3<n<6.
 	public int setN(){
 		Scanner sc=new Scanner(System.in);  
@@ -43,7 +51,7 @@ public class MyConnectN {
    		return this.nValue;
 	}
 	
-	// 
+	// welcomeMessage prints a welcome message before a new game begins.
 	private void welcomeMesssage() {
 	   System.out.println("\nWelcome to Connect N");
 	   System.out.println("There are 3 players red, yellow and Blue");

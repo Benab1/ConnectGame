@@ -1,7 +1,7 @@
 abstract class Player {
 
-  protected char colour;
-  protected int move;
+  private char colour;
+  private int move;
 
 
   public char getColour(){
